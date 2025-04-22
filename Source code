@@ -1,0 +1,101 @@
+import random
+
+draws = ["""
++-----+
+       |
+       |
+       | 
+       |
+       |
+==========
+          """, """
++-----+
+   |   |
+       |
+       | 
+       |
+       |
+==========
+          """, """
++-----+
+   |   |
+   0   |
+       | 
+       |
+       |
+==========
+          """, """
++-----+
+   |   |
+   0   |
+   |   | 
+       |
+       |
+==========
+          """, """
++-----+
+   |   |
+   0   |
+  /|   | 
+       |
+       |
+==========
+          """, """
++-----+
+   |   |
+   0   |
+  /|\  | 
+       |
+       |
+==========
+          """, """
++-----+
+   |   |
+   0   |
+  /|\  | 
+  / \  |
+       |
+==========
+          """]
+
+words = ["good", "bad", "ugly"]
+random_word = random.choice(words)
+lives = 6
+guessed_letters = []
+display = ["_"] * len(random_word)
+print(" ".join(display))
+while "_" in display and lives > 0 :
+    guessed = input("Please guess a letter: ").lower()
+
+    if guessed in guessed_letters:
+        print("You already guessed that. Try again.")
+        print(f"You have {lives} more tries")
+
+        continue
+
+    if guessed not in random_word:
+        lives -= 1
+        print(draws[6-lives])
+
+    else:
+        for position in range(len(random_word)):
+            if random_word[position] == guessed:
+                display[position] = guessed
+
+    print(" ".join(display))
+    print(f"You have {lives} more tries")
+
+if lives == 0:
+    print("""
+    ************
+      YOU LOSE!
+    ************      
+          """)
+    print(draws[-1])
+    
+else:
+    print("""
+      ***********
+        YOU WIN!
+      ***********
+      """)
